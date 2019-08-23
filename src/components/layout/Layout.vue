@@ -11,7 +11,7 @@
               <el-col :span="9">
                 <el-menu mode="horizontal" @select="handleSelect">
                   <el-submenu index="about">
-                    <template slot="title"> 了解博主 </template>
+                    <template slot="title"> 社区 </template>
                     <el-menu-item index="github">Github</el-menu-item>
                     <el-menu-item index="zhihu">知乎</el-menu-item>
                     <el-menu-item index="jianshu">简书</el-menu-item>
