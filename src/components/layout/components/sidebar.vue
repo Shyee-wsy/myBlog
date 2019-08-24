@@ -2,7 +2,7 @@
   <div>
     <el-card shadow="hover">
       <el-menu>
-        <el-menu-item v-for="item in constantRouterMap">
+        <el-menu-item v-for="item in constantRouterMap" :key="item.id">
           <i :class="item.icon"></i>
           {{item.content}}
         </el-menu-item>
