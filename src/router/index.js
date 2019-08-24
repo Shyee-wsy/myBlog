@@ -1,70 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/layout/Layout'
-// import blog from '@/components/AppMain/blog'
-// import social from '@/components/AppMain/social'
-// import about from '@/components/AppMain/about'
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+const RouterMap = [  //使用const定义变量，要先定义再使用
     {
       path: '/',
       // redirect: '/user/blog/main',
-      component: Layout
-      // children: {
-      //   path: 'main',
-      //   component: blog,
-      // }
-    // },
-    // {
-    //   path: '/user/social',
-    //   component: Layout,
-    //   children: {
-    //     path: 'main',
-    //     component: social
-    //   }
-    // },
-    // {
-    //   path: '/user/about',
-    //   component: Layout,
-    //   children: {
-    //     path: 'main',
-    //     component: about
-    //   }
+      component: Layout,
+      children: [{
+        path: 'main',
+        component: () => import('@/components/AppMain/blog'),
+      }]
+    },
+    {
+      path: '/user/social',
+      component: Layout,
+      children: [{
+        path: 'main',
+        component: () => import('@/components/AppMain/social')
+      }]
+    },
+    {
+      path: '/user/about',
+      component: Layout,
+      children: [{
+        path: 'main',
+        component: () => import('@/components/AppMain/about')
+      }]
     }
   ]
+
+export default new Router({
+  routes: RouterMap
 })
-
-// const RouterMap = [
-//   {
-//     path: '/',
-//     redirect: '/user/blog/main',
-//     component: Layout,
-//     meta: {
-//       title: '博客'
-//     },
-//     children: {
-//       path: 'main',
-//       component: blog,
-//     }
-//   },
-//   {
-//     path: '/user/social',
-//     component: Layout,
-//     children: {
-//       path: 'main',
-//       component: social
-//     }
-//   },
-//   {
-//     path: '/user/about',
-//     component: Layout,
-//     children: {
-//       path: 'main',
-//       component: about
-//     }
-//   }
-// ]
-
