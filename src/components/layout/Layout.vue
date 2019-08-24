@@ -21,7 +21,7 @@
               <el-col :span="7">
                 <el-form style="position:relative;top: 10px;">
                   <el-form-item>
-                    <el-input placeholder="search..."></el-input>
+                    <el-input placeholder="搜索..."></el-input>
                   </el-form-item>
                 </el-form>
               </el-col>
@@ -40,7 +40,7 @@
         <el-col :span="5">
           <sidebar></sidebar>
         </el-col>
-        <el-col :span="15">
+        <el-col :span="19">
           <AppMain></AppMain>
         </el-col>
       </el-row>
