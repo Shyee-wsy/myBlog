@@ -45,7 +45,9 @@
         </el-col>
       </el-row>
     </el-main>
-    <el-footer ></el-footer>
+    <el-footer style="padding: 1rem 6rem; background-color: #afafb6; color: white;">
+      <address>Copyright &copy2019 Shyee-wsy</address>
+    </el-footer>
   </el-container>
 </template>
 
@@ -85,7 +87,7 @@
     margin: 0;
   }
   .page-header{
-    text-align: left;
+    /*text-align: left;*/
     padding: 5rem 6rem;
     background-color: #159957;
     background-image: linear-gradient(120deg, #155799, #159957);

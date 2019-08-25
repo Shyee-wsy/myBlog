@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="hover">
+    <el-card shadow="hover"  style="height: 75vh;">
       <el-menu @select="onSelect">
         <el-menu-item v-for="item in RouterMap" :key="item.path" :index="item.path">
           <i :class="item.meta.icon"></i>
