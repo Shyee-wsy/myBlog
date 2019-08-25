@@ -1,9 +1,10 @@
 <template>
   <div>
     <el-card shadow="hover">
-      <!--<router-view/>-->
+      <!--<blog></blog>-->
+      <router-view/>
       <!--<social></social>-->
-      <about></about>
+      <!--<about></about>-->
     </el-card>
   </div>
 </template>
@@ -11,10 +12,12 @@
 <script>
 import social from '../.././AppMain/social'
 import about from '../.././AppMain/about'
+import blog from '../.././AppMain/blog'
   export default {
     components: {
       social,
-      about
+      about,
+      blog
     },
     data() {
       return {

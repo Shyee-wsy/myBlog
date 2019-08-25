@@ -4,34 +4,61 @@ import Layout from '@/components/layout/Layout'
 
 Vue.use(Router)
 
-const RouterMap = [  //使用const定义变量，要先定义再使用
+export const RouterMap = [  //使用const定义变量，要先定义再使用
     {
       path: '/',
-      // redirect: '/user/blog/main',
+      redirect: '/blog/list',
       component: Layout,
+      meta: {
+        title: '博客列表',
+        icon: 'el-icon-notebook-2'
+      },
       children: [{
-        path: 'main',
-        component: () => import('@/components/AppMain/blog'),
+        path: '/blog/list',
+        component: () => import('@/components/AppMain/blog'), // 直接在此处引入组件
       }]
     },
     {
-      path: '/user/social',
+      path: '/social',
       component: Layout,
+      meta: {
+        title: '社交',
+        icon: 'el-icon-user'
+      },
       children: [{
-        path: 'main',
+        path: '',
         component: () => import('@/components/AppMain/social')
       }]
     },
     {
-      path: '/user/about',
+      path: '/projects',
       component: Layout,
+      meta: {
+        title: '开源项目',
+        icon: 'el-icon-s-grid'
+      },
+      children: [
+        {
+        path: '',
+        component: () => import('@/components/AppMain/projects')
+      }]
+    },
+    {
+      path: '/about',
+      component: Layout,
+      meta:{
+        title: '关于作者',
+        icon: 'el-icon-user-solid'
+      },
       children: [{
-        path: 'main',
+        path: '',
         component: () => import('@/components/AppMain/about')
       }]
     }
   ]
 
-export default new Router({
+const router = new Router({
   routes: RouterMap
 })
+
+export default router
