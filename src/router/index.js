@@ -13,10 +13,16 @@ export const RouterMap = [  //使用const定义变量，要先定义再使用
         title: '博客列表',
         icon: 'el-icon-notebook-2'
       },
-      children: [{
+      children: [
+        {
         path: '/blog/list',
         component: () => import('@/components/Blog/list'), // 直接在此处引入组件
-      }]
+      },
+        {
+          path: '/blog/edit',
+          component: () => import('@/components/Blog/edit'),
+        }
+      ]
     },
     {
       path: '/social',
