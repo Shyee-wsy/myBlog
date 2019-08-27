@@ -15,7 +15,7 @@ export const RouterMap = [  //使用const定义变量，要先定义再使用
       },
       children: [{
         path: '/blog/list',
-        component: () => import('@/components/AppMain/blog'), // 直接在此处引入组件
+        component: () => import('@/components/Blog/list'), // 直接在此处引入组件
       }]
     },
     {
