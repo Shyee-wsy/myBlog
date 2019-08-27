@@ -1,15 +1,22 @@
 <template>
   <div>
-    <!--<el-card>-->
-
-    <!--</el-card>-->
+    <el-button type="primary" icon="el-icon-edit" @click="$router.push('/blog/edit')">新建文章</el-button>
     <el-card v-for="item in blogList" :key="item.id" class="blogCard" style="margin: 20px;">
       <div slot="header">
-        <span>{{item.title}}</span>
+        <el-row>
+          <el-col :span="15"><span>{{item.title}}</span></el-col>
+          <el-col :span="9">
+            <div style="position: absolute; right: 0;">
+              <el-button  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
+              <el-button type="info" icon="el-icon-share" circle size="mini"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+            </div>
+          </el-col>
+        </el-row>
       </div>
       <div>
-        <time style="font-size:0.8em; margin-right: 20px;">发布时间：{{item.createdDate}}</time>
-        <time style="font-size: 0.8em;">更新时间：{{item.updateDate}}</time>
+        <time style="font-size:0.7em; margin-right: 20px;">发布时间：{{item.createdDate}}</time>
+        <time style="font-size: 0.7em;">更新时间：{{item.updateDate}}</time>
         <article style="margin-top: 20px">{{item.content}} </article>
       </div>
     </el-card>
@@ -37,5 +44,8 @@ article{
   -o-text-overflow:ellipsis;
   overflow:hidden;
   white-space: nowrap;
+}
+.el-card__header {
+  background-color: #0001;
 }
 </style>
