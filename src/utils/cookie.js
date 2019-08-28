@@ -1,18 +1,21 @@
 import Cookies from 'js-cookie'
 
 export default {
-  setAttribute (key, value, time) {
+  setCookie (key, value, time) {
     if (time) {
+      // 设置cookie
       return Cookies.set(key, value, {
-        expires: time
+        expires: time // 时效
       })
     }
     return Cookies.set(key, value)
   },
-  getAttribute(key) {
+  getCookie(key) {
+    // 读取cookie
     return Cookies.get(key)
   },
-  remove (key) {
+  removeCookie (key) {
+    // 删除cookie
     return Cookies.remove(key)
   }
 }
