@@ -6,17 +6,17 @@ import UserApi from '@/api/user'
 const TOKEN_KEY = 'TOKEN_KEY'
 const token = {
   state: {
-    token: Cookie.getAttribute(TOKEN_KEY)
+    token: Cookie.getCookie(TOKEN_KEY)//使用js-cookie的get方法获取cookie
   },
 
   mutations: {
     SET_TOKEN: (state, value) => {
       state.token = value
-      Cookie.setAttribute(TOKEN_KEY, value, 30)
+      Cookie.setCookie(TOKEN_KEY, value, 5)
     },
     REMOVE_TOKEN: (state) => {
       state.token = null
-      Cookie.remove(TOKEN_KEY)
+      Cookie.removeCookie(TOKEN_KEY)
     }
   },
 
