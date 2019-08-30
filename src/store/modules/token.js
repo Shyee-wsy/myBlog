@@ -1,14 +1,13 @@
-import store from '../index'
 import Cookie from '@/utils/cookie'
-import Vue from 'vue'
 import UserApi from '@/api/user'
+import Vue from 'vue'
+import store from '../index'
 
 const TOKEN_KEY = 'TOKEN_KEY'
 const token = {
-  state: {
-    token: Cookie.getCookie(TOKEN_KEY)//使用js-cookie的get方法获取cookie
+  state:{
+    token: Cookie.getCookie(TOKEN_KEY)
   },
-
   mutations: {
     SET_TOKEN: (state, value) => {
       state.token = value
@@ -19,18 +18,18 @@ const token = {
       Cookie.removeCookie(TOKEN_KEY)
     }
   },
-
   actions: {
-    Authentication({ commit }, accessToken) {
+    Authentication({ commit }, accessToken) { //参数为 context.commit 和 荷载accessToken
       UserApi.verifyToken(accessToken).then((response) => {
-        let result = response.data
+        console.log('请到request里面设置响应拦截')
+        let result = response.data // response拦截器将response返回的为data
         let githubUsername = store.state.configuration.githubUsername
         if(githubUsername === result['login']) {
           commit('SET_TOKEN', accessToken)
-          Vue.prototype.$nofify({
+          Vue.prototype.$notify({
             title: '成功',
             message: 'Token绑定成功',
-            type:'success'
+            type: 'success'
           })
         } else {
           Vue.prototype.$message({
@@ -39,10 +38,10 @@ const token = {
           })
         }
       }).catch(() => {
-
+        console.log('token绑定失败')
       })
     },
-    Cancellation ({ commit}) {
+    Cancellation({ commit }){
       commit('REMOVE_TOKEN')
       Vue.prototype.$message({
         message: 'Token取消绑定',
