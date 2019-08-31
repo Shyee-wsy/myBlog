@@ -1,6 +1,6 @@
 const configuration = {
   state: {
-    githubUsername: '',
+    githubUsername: 'Shyee-wsy',
     htmlTile: '',
   },
 
