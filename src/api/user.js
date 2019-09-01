@@ -1,4 +1,4 @@
-import request from '@utils/request'
+import request from '@/utils/request'
 import store from '../store/index'
 
 export default {
@@ -9,25 +9,26 @@ export default {
   },
   getInfo:function () {
     let githubUsername = store.state.configuration.githubUsername
-  return request({
-    url: '/users/' + githubUsername
-  })
-},
+    return request({
+      url: '/users/' + githubUsername
+    })
+  },
   followers: function (query) {
     let githubUsername = store.state.configuration.githubUsername
     return request({
-      url: `/users/${githubUsername}/followers?page=${query.page}&per_page=${query.pageSize}`
+      url: `/users/${githubUsername}/followers`
     })
   },
   following: function (query) {
     let githubUsername = store.state.configuration.githubUsername
     return request({
-      url: `/users/${githubUsername}/following?page=${query.page}$per_page=${query.pageSize}`
+      url: `/users/${githubUsername}/following`
     })
   },
-  info: function (githubUsername) {
+  projects:function () {
+    let githubUsername = store.state.configuration.githubUsername
     return request({
-      url: `/users/${githubUsername}`
+      url: `/users/${githubUsername}/repos`
     })
   }
 }
