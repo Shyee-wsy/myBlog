@@ -15,8 +15,8 @@
         </el-row>
       </div>
       <div>
-        <time style="font-size:0.7em; margin-right: 20px;">发布时间：{{item.createdDate}}</time>
-        <time style="font-size: 0.7em;">更新时间：{{item.updateDate}}</time>
+        <time style="font-size:0.8em; margin-right: 20px; color: darkred;">发布时间：{{item.createdDate}}</time>
+        <time style="font-size: 0.8em; color: darkred">更新时间：{{item.updateDate}}</time>
         <article style="margin-top: 20px">{{item.content}} </article>
       </div>
     </el-card>
@@ -45,7 +45,7 @@ article{
   overflow:hidden;
   white-space: nowrap;
 }
-.el-card__header {
+.el-card__header{
   background-color: #0001;
 }
 </style>
