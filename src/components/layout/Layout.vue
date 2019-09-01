@@ -3,7 +3,7 @@
     <el-header class="page-header">
       <el-row :gutter="15">
         <el-col :span="5">
-          <img src="https://avatars2.githubusercontent.com/u/39408629?v=4" alt="头像" style="width: 110px;height: 110px;position:relative;top:-40px;">
+          <img :src="avatar" alt="头像" style="width: 110px;height: 110px;position:relative;top:-40px;">
         </el-col>
         <el-col :span="19">
           <el-card shadow="hover" :body-style="{padding:'3px'}">
@@ -54,6 +54,8 @@
 <script>
   import sidebar from './components/sidebar'
   import AppMain from './components/AppMain'
+  import user from '@/api/user'
+
   export default {
     components:{
       sidebar,
@@ -61,23 +63,31 @@
     },
     data(){
       return {
-        githubUsername: 'Shyee-wsy',
-        value: []
+        value: [],
+        avatar: '',
+        gitHubUrl: ''
       }
     },
     methods: {
       handleSelect(index) {
         switch (index) {
           case 'github':
-            window.open('https://github.com/' + this.githubUsername)
+            window.open(this.gitHubUrl)
                 break
           case 'zhihu':
             window.open('https://www.zhihu.com/people/shyee-69/activities')
                 break
         }
       },
-      filterMethod(){},
-      data(){}
+      getAvatar() {
+        user.getInfo().then(resp =>{
+          this.avatar = resp['avatar_url']
+          this.gitHubUrl = resp['html_url']
+        })
+      }
+    },
+    mounted(){
+      this.getAvatar();
     }
   }
 </script>
