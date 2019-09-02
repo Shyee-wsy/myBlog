@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="projects.length" v-loading="loading">
+    <div v-if="projects.length">
       <el-row>
         <el-col v-for="item in projects" :key="item.id" :span="12" style="padding: 10px">
           <el-card>
@@ -26,13 +26,11 @@ import user from '@/api/user'
   export default {
     data(){
       return {
-        projects: [],
-        loading: false
+        projects: []
       }
     },
     methods: {
       fetchProjects() {
-        this.loading = true
         user.projects().then(data => {
           console.log(data)
           for(let i = 0; i < data.length; i++) {
@@ -47,7 +45,7 @@ import user from '@/api/user'
               url: data[i].clone_url
             })
           }
-        }).then( () => this.loading=false)
+        })
       }
     },
     mounted(){
