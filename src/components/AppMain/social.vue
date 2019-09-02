@@ -3,7 +3,7 @@
       <template>
         <el-tabs>
           <el-tab-pane :label="'关注 ' + following.total">
-            <div v-if="following.list.length" v-loading="following.loading">
+            <div v-if="following.list.length">
               <el-row style="min-height: 200px;" :gutter="20">
                 <el-col v-for="item in following.list" :key="item.id" :span="6" style="padding:10px;">
                   <el-card shadow="hover" style="font-size:16px;line-height: 20px;">
@@ -22,7 +22,7 @@
           </el-tab-pane>
 
           <el-tab-pane :label="'粉丝 ' + follower.total">
-            <div v-if="follower.list.length" v-loading="follower.loading">
+            <div v-if="follower.list.length">
               <el-row style="min-height: 200px;" :gutter="20">
                 <el-col v-for="item in follower.list" :key="item.id" :span="6" style="padding:10px;">
                   <el-card shadow="hover" style="font-size:16px;line-height: 20px;">
@@ -35,7 +35,7 @@
                 </el-col>
               </el-row>
             </div>
-            <div style="min-height: 300px;margin-bottom: 20px;padding: 20px 0px 20px 0px;text-align: center" v-else>
+            <div style="min-height: 300px;margin-bottom: 20px;padding: 20px 0 20px 0;text-align: center" v-else>
               <b>暂无粉丝</b>
             </div>
           </el-tab-pane>
@@ -52,34 +52,30 @@ import user from '@/api/user'
       return {
         follower: {
           list: [],
-          loading: false,
           total: 0
         },
         following: {
           list: [],
-          loading: false,
           total: 0
         },
       }
     },
     methods:{
       fetchFollower(){
-        this.follower.loading = true
         user.followers().then(data => {
           this.follower.total = data.length
           for(let i = 0; i < data.length; i++){
             this.follower.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})
           }
-        }).then( () => this.follower.loading = false )
+        })
       },
       fetchFollowing(){
-        this.following.loading = true
         user.following().then(data =>{
           this.following.total = data.length
           for(let i = 0; i < data.length; i++){
             this.following.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})
           }
-        }).then(() =>  this.following.loading = false)
+        })
       }
     },
     mounted(){
