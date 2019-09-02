@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="projects.length">
+    <div v-if="projects.length" v-cloak>
       <el-row>
         <el-col v-for="item in projects" :key="item.id" :span="12" style="padding: 10px">
           <el-card>
@@ -17,7 +17,7 @@
         </el-col>
       </el-row>
     </div>
-    <div v-else>暂时没有项目:)</div>
+    <div v-else v-cloak>暂时没有项目:)</div>
   </div>
 </template>
 
@@ -53,3 +53,8 @@ import user from '@/api/user'
     }
   }
 </script>
+<style>
+[v-cloak]{
+  display: none !important;
+}
+</style>
