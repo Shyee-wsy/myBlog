@@ -84,9 +84,10 @@
           this.avatar = resp['avatar_url']
           this.gitHubUrl = resp['html_url']
         })
+          .catch(error => console.log('获取头像失败'))
       }
     },
-    mounted(){
+    mounted: function(){
       this.getAvatar();
     }
   }
