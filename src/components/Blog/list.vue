@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-icon-edit" @click="$router.push('/blog/edit')">新建文章</el-button>
+    <el-button type="primary" icon="el-icon-edit" @click="newBlog">新建文章</el-button>
     <el-card v-for="item in blogList" :key="item.id" class="blogCard" style="margin: 20px;">
       <div slot="header">
         <el-row>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
   export default {
     data() {
       return{
@@ -33,6 +34,25 @@
           {id: 2, title: '第三篇文章', createdDate: '2018-3', updateDate: '2018-3', content: '第三篇文章的内容比较长，有多长呢，很长很长很长很长很长很长超级长，不知道有多长呢,很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长很长很长很长很长超级长很长很长'}
         ]
       }
+    },
+    computed: {
+      ...mapGetters([
+        'token'
+      ])
+    },
+    methods: {
+      newBlog() {
+        console.log(this.token)
+        if(!this.token){
+          this.$message({
+            message: '请绑定有效的Token',
+            type: 'warning'
+          })
+        } else {
+          this.$router.push('/blog/edit')
+        }
+      },
+
     }
   }
 </script>
