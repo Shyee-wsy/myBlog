@@ -2,7 +2,7 @@
   <div>
     <el-card shadow="never">
       <div class="about">
-        <img src="https://avatars2.githubusercontent.com/u/39408629?v=4" alt="头像">
+        <img :src="avatar" alt="头像">
         <div>
           <p><b>基本信息</b></p>
           <ul>
@@ -23,7 +23,25 @@
 </template>
 
 <script>
-
+import user from '@/api/user'
+export default {
+  data(){
+    return {
+      avatar: ''
+    }
+  },
+  methods: {
+    getAvatar(){
+      user.getInfo().then( resp => {
+        this.avatar = resp['avatar_url']
+      })
+        .catch(() => console.log('获取头像失败'))
+    }
+  },
+  mounted: function(){
+    this.getAvatar()
+  }
+}
 </script>
 
 <style>
