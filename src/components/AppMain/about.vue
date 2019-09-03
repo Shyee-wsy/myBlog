@@ -35,7 +35,7 @@ export default {
       user.getInfo().then( resp => {
         this.avatar = resp['avatar_url']
       })
-        .catch(() => console.log('获取头像失败'))
+        .catch(error => console.log('获取头像失败' + error))
     }
   },
   mounted: function(){
