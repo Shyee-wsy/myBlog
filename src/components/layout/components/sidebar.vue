@@ -9,7 +9,11 @@
       </el-menu>
     </el-card>
 
-    <el-card style="margin-top:15px;" shadow="hover">
+    <el-card v-if="this.token" style="margin-top:15px;" shadow="hover">
+      <span>取消绑定</span>
+      <el-button type="text" @click="cancelToken">取消token绑定</el-button>
+    </el-card>
+    <el-card v-else style="margin-top:15px;" shadow="hover">
       <span>&nbsp;&nbsp;Token未绑定&nbsp;&nbsp;</span>
       <el-button type="text" @click="openTokenDialog">绑定</el-button>
     </el-card>
@@ -43,6 +47,12 @@
       },
       openTokenDialog(){
         this.$refs.tokenDialog.open(() => {})
+      },
+      //取消token绑定
+      cancelToken(){
+        if(this.token){
+          this.$store.dispatch('Cancellation')
+        }
       }
     },
   }
