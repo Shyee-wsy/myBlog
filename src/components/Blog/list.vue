@@ -42,7 +42,6 @@ import { mapGetters } from 'vuex'
     },
     methods: {
       newBlog() {
-        console.log(this.token)
         if(!this.token){
           this.$message({
             message: '请绑定有效的Token',
