@@ -24,12 +24,14 @@ function endLoading() {
 
 //添加请求拦截器
 service.interceptors.request.use(
-//   //在发送前绑定token，用户验证
   config => {
     startLoading() //请求数据时开启loading
     let token = store.state.token.token
-    //查询字符串的参数名-值对使用"&"分隔，首先检查URL是否含有问号（以确定是否已经含有参数存在）。如果没有，就添加一个问号；否则，就添加一个和号。
-    config.url += (config.url.indexOf('?') === -1 ? '?' : '&') + 'access_token=' + token
+    // 注意，此处先判断token有没有绑定，若绑定了token，才需给url加上token参数。若没有绑定，不需要给url添加token参数
+    if(token) {
+      //查询字符串的参数名-值对使用"&"分隔，首先检查URL是否含有问号（以确定是否已经含有参数存在）。如果没有，就添加一个问号；否则，就添加一个和号。
+      config.url += (config.url.indexOf('?') === -1 ? '?' : '&') + 'access_token=' + token
+    }
     return config
   },
   error => {
@@ -45,7 +47,7 @@ service.interceptors.response.use(
     return data
   },
   error => {
-    let errorMessage;
+    let errorMessage = error.response.data.message
     switch(error.response.status){
       case 401:
         errorMessage = 'Token错误'
@@ -54,7 +56,7 @@ service.interceptors.response.use(
         errorMessage = error.response.data.message
             break
     }
-    //element 提供的消息提示
+    // element 提供的消息提示
     Vue.prototype.$message({
       message: errorMessage,
       type: 'error'
