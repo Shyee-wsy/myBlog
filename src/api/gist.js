@@ -10,18 +10,18 @@ export default {
   },
   singleGist: function(gistId){
     return request({
-      url: `gist/` + gistId
+      url: `/gists/` + gistId
     })
   },
   createGist(form){
     let files = {}
-    files[form.title] = { content: form.content }
+    files[form.filename] = { content: form.content }
     return request({
       method: 'POST',
       url: `/gists`,
       data: {
         'public': true,
-        'description': form.description,
+        'description': form.tags,
         'files': files
       }
     })
