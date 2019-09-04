@@ -9,6 +9,10 @@
         <el-radio-group v-model="form.tags">
           <el-radio label="JS"></el-radio>
           <el-radio label="html"></el-radio>
+          <el-radio label="python"></el-radio>
+          <el-radio label="css"></el-radio>
+          <el-radio label="日记"></el-radio>
+          <el-radio label="其他"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
@@ -24,6 +28,8 @@
 </template>
 
 <script>
+  import gistApi from '@/api/gist'
+
   export default {
     data() {
       return {
@@ -50,7 +56,14 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if(valid) {
-            alert('submit');
+            gistApi.createGist(this.form).then( resp => {
+              this.$message({
+                message: '发表成功',
+                type: 'success'
+              })
+              this.$router.push('/Blog/detail/' + resp.id )
+              console.log(resp)
+            })
           } else {
             console.log('error submit!!');
             return false;
