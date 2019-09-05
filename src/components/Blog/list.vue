@@ -5,14 +5,14 @@
       <div slot="header">
         <el-row>
           <el-col :span="15">
-            <span style="font-size: 1.3rem;color: #409EFF">{{item.title}}</span>
+            <span style="font-size: 1.3rem;color: #409EFF" @click="goDetail(item.id)">{{item.title}}</span>
             <el-tag size="mini" effect="plain" style="margin-left: 1rem;">
               {{item.tag}}
             </el-tag>
           </el-col>
           <el-col :span="9">
             <div style="position: absolute; right: 0;">
-              <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token"></el-button>
+              <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token" @click="editBlog(item.id)"></el-button>
               <el-button type="info" icon="el-icon-share" circle size="mini"></el-button>
               <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)" v-if="token"></el-button>
             </div>
@@ -50,7 +50,7 @@ import gistApi from '@/api/gist'
             type: 'warning'
           })
         } else {
-          this.$router.push('/blog/edit')
+          this.$router.push('/blog/newBlog')
         }
       },
       fetchAllBlog(){
@@ -85,6 +85,12 @@ import gistApi from '@/api/gist'
             type: 'info'
           })
         })
+      },
+      editBlog(id){
+        this.$router.push('/blog/edit/' + id)
+      },
+      goDetail(id){
+        this.$router.push('/blog/detail/' + id)
       }
     },
     mounted: function () {
@@ -104,4 +110,7 @@ import gistApi from '@/api/gist'
 /*.el-card__header{*/
   /*background-color: #0001;*/
 /*}*/
+span:hover{
+  cursor: pointer;
+}
 </style>
