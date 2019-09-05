@@ -6,15 +6,18 @@
         <div>
           <p><b>基本信息</b></p>
           <ul>
-            <li>姓名: XXX</li>
-            <li>籍贯: 成都</li>
-            <li>职业: 攻城狮</li>
+            <li>姓名: wsy</li>
+            <li>出生日期: 1995-7-14</li>
+            <li>籍贯: 云南</li>
+            <li>现居地: 成都</li>
+            <li>职业: web前端工程师</li>
             <li>出生日期: 2019年10月10日</li>
-            <li>兴趣: 吃饭睡觉打豆豆</li>
+            <li>兴趣: 运动 音乐</li>
           </ul>
           <p><b>联系作者</b></p>
           <ul>
-            <li>Email: XXX@email.com</li>
+            <li>Email: shyee-wsy@outlook.com</li>
+            <li>Github: https://github.com/Shyee-wsy</li>
           </ul>
         </div>
       </div>
