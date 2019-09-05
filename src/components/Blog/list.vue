@@ -12,9 +12,9 @@
           </el-col>
           <el-col :span="9">
             <div style="position: absolute; right: 0;">
-              <el-button  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
+              <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token"></el-button>
               <el-button type="info" icon="el-icon-share" circle size="mini"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)" v-if="token"></el-button>
             </div>
           </el-col>
         </el-row>
