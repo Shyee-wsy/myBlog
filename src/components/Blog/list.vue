@@ -14,7 +14,7 @@
             <div style="position: absolute; right: 0;">
               <el-button  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
               <el-button type="info" icon="el-icon-share" circle size="mini"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)"></el-button>
             </div>
           </el-col>
         </el-row>
@@ -53,7 +53,7 @@ import gistApi from '@/api/gist'
           this.$router.push('/blog/edit')
         }
       },
-      fetchAllBlogs(){
+      fetchAllBlog(){
         gistApi.gistsCollection().then(resp => {
           for(let i = 0; i < resp.length; i++) {
             this.blogList.push({
@@ -65,10 +65,30 @@ import gistApi from '@/api/gist'
             })
           }
         })
+      },
+      deleteBlog(id) {
+        this.$confirm('此操作将永久删除该文章，是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then( () => {
+          gistApi.deleteGist(id).then( () => {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+            // this.fetchAllBlog()
+          })
+        }).catch( () => {
+          this.$message({
+            message: '已取消删除',
+            type: 'info'
+          })
+        })
       }
     },
     mounted: function () {
-      this.fetchAllBlogs()
+      this.fetchAllBlog()
     }
   }
 </script>
