@@ -41,7 +41,7 @@ export default {
   deleteGist(gistId) {
     return request({
       method: 'DELETE',
-      url: `/gists` + gistId
+      url: `/gists/` + gistId
     })
   }
 }
