@@ -9,7 +9,7 @@
                   <el-card shadow="hover" style="font-size:16px;line-height: 20px;">
                     <i class="el-icon-star-off"></i>
                     <a style="font-weight: bold;">{{item.name}}</a><br/>
-                    <i class="el-icon-message"></i>
+                    <i class="el-icon-place"></i>
                     <a :href="item.url" target="_blank" style="text-decoration: none; color: #409EFF;">TA的主页</a><br/>
                     <img :src="item.avatar" style="width:90%;height:90%; padding: 5px;border-radius: 10%; margin-top: 5%;">
                   </el-card>
