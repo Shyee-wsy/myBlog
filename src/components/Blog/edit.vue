@@ -4,9 +4,8 @@
       <el-form-item label="标题" prop="filename">
         <el-input v-model="form.filename"></el-input>
       </el-form-item>
-      <el-form-item label="标签" prop="tags">
-        <!--<el-input v-model="form.tag"></el-input>-->
-        <el-radio-group v-model="form.tags">
+      <el-form-item label="标签" prop="tag">
+        <el-radio-group v-model="form.tag">
           <el-radio label="JS"></el-radio>
           <el-radio label="html"></el-radio>
           <el-radio label="python"></el-radio>
@@ -28,22 +27,20 @@
 </template>
 
 <script>
-  import gistApi from '@/api/gist'
-
-  export default {
-    data() {
+import gistApi from '@/api/gist'
+export default {
+    data(){
       return {
         form: {
           filename: '',
           tag: '',
-          tags: [],
           content: ''
         },
         rules: {
           filename: [
             {required: true, message: '请输入文章标题', trigger: 'blur'}
           ],
-          tags: [
+          tag: [
             {required: true, message: '请选择一个标签', trigger: 'change'}
           ],
           content: [
@@ -52,32 +49,43 @@
         }
       }
     },
-    methods: {
-      submitForm(formName) {
+  methods: {
+    fetchBlog(){
+      gistApi.singleGist(this.$route.params.id).then(resp => {
+        for(let key in resp.files){
+          this.form.filename = key
+          this.form.content = resp.files[key].content
+        }
+        this.form.tag = resp.description
+      }).catch(error => console.log(error))
+    },
+    submitForm(formName){
         this.$refs[formName].validate((valid) => {
-          if(valid) {
-            gistApi.createGist(this.form).then( resp => {
+          if(valid){
+            gistApi.editGist(this.$route.params.id, this.form).then(() => {
               this.$message({
-                message: '发表成功',
+                message: '发布成功',
                 type: 'success'
               })
-              this.$router.push('/Blog/detail/' + resp.id )
-              console.log(resp)
-            })
+            }).then(this.$router.push('/blog/detail/' + this.$route.params.id))
           } else {
-            console.log('error submit!!');
-            return false;
+            console.log('submit error')
+            return false
           }
         })
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+    },
+    resetForm(formName){
+      this.$refs[formName].resetFields()
     }
+  },
+  mounted: function () {
+    this.fetchBlog()
   }
+}
 </script>
+
 <style>
-  textarea{
-    min-height: 35em;
-  }
+textarea{
+  min-height: 20em;
+}
 </style>
