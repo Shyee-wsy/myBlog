@@ -3,9 +3,9 @@
     <article>
       <h1 style="font-size: 2rem;">{{blog.title}}</h1>
       <div style="font-size: 0.8rem">
-        <el-tag effect="plain" size="mini" style="margin:2rem 0">标签：{{blog.tag}}</el-tag>
-        <time style="margin: 0 2rem">创建时间：{{blog.createdAt}}</time>
-        <time>更新时间：{{blog.updatedAt}}</time>
+        <el-tag effect="dark" size="mini" style="margin:2rem 0" type="danger"><i class="el-icon-s-flag"></i>&nbsp;{{blog.tag}}</el-tag>
+        <time style="margin: 0 2rem; color: darkred;">创建时间：{{blog.createdAt}}</time>
+        <time style="color: darkred;">更新时间：{{blog.updatedAt}}</time>
       </div>
       <p style="font-size: 1.2rem; margin-bottom: 2rem;">{{blog.content}}</p>
     </article>
