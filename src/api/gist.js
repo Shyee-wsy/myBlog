@@ -21,19 +21,19 @@ export default {
       url: `/gists`,
       data: {
         'public': true,
-        'description': form.tags,
+        'description': form.tag,
         'files': files
       }
     })
   },
   editGist(gistId, form){
     let files = {}
-    files[form.title] = { content: form.content }
+    files[form.filename] = { content: form.content }
     return request({
       method: 'PATCH',
       url: `/gists/` + gistId,
       data: {
-        'description': form.description,
+        'description': form.tag,
         'files': files
       }
     })
