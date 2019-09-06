@@ -5,15 +5,16 @@
       <div slot="header">
         <el-row>
           <el-col :span="15">
-            <span style="font-size: 1.3rem;color: #409EFF" @click="goDetail(item.id)">{{item.title}}</span>
-            <el-tag size="mini" effect="plain" style="margin-left: 1rem;">
+            <span class="title" style="font-size: 1.3rem;color: #409EFF" @click="goDetail(item.id)">{{item.title}}</span>
+            <el-tag size="mini" effect="dark" style="margin-left: 1rem;" type="danger">
+              <i class="el-icon-s-flag"></i>&nbsp;
               {{item.tag}}
             </el-tag>
           </el-col>
           <el-col :span="9">
             <div style="position: absolute; right: 0;">
               <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token" @click="editBlog(item.id)"></el-button>
-              <el-button type="info" icon="el-icon-share" circle size="mini"></el-button>
+              <!--<el-button type="info" icon="el-icon-share" circle size="mini"></el-button>-->
               <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)" v-if="token"></el-button>
             </div>
           </el-col>
@@ -59,7 +60,7 @@ import gistApi from '@/api/gist'
             this.blogList.push({
               id: resp[i].id,
               title: Object.keys(resp[i].files).join(''),
-              createdDAte: resp[i]['created_at'],
+              createdDate: resp[i]['created_at'],
               updateDate: resp[i]['updated_at'],
               tag: resp[i].description
             })
@@ -110,7 +111,7 @@ import gistApi from '@/api/gist'
 /*.el-card__header{*/
   /*background-color: #0001;*/
 /*}*/
-span:hover{
+.title:hover{
   cursor: pointer;
 }
 </style>
