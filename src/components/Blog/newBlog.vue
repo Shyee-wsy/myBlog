@@ -4,9 +4,9 @@
       <el-form-item label="标题" prop="filename">
         <el-input v-model="form.filename"></el-input>
       </el-form-item>
-      <el-form-item label="标签" prop="tags">
+      <el-form-item label="标签" prop="tag">
         <!--<el-input v-model="form.tag"></el-input>-->
-        <el-radio-group v-model="form.tags">
+        <el-radio-group v-model="form.tag">
           <el-radio label="JS"></el-radio>
           <el-radio label="html"></el-radio>
           <el-radio label="python"></el-radio>
@@ -36,14 +36,13 @@
         form: {
           filename: '',
           tag: '',
-          tags: [],
           content: ''
         },
         rules: {
           filename: [
             {required: true, message: '请输入文章标题', trigger: 'blur'}
           ],
-          tags: [
+          tag: [
             {required: true, message: '请选择一个标签', trigger: 'change'}
           ],
           content: [
