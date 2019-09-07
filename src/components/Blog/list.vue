@@ -25,6 +25,14 @@
         <time style="font-size: 0.8em; color: darkred">更新时间：{{item.updateDate}}</time>
       </div>
     </el-card>
+    <div class="block">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="total"
+        :page-size="5"
+        :page-count="2"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -35,7 +43,8 @@ import gistApi from '@/api/gist'
   export default {
     data() {
       return{
-        blogList: []
+        blogList: [],
+        total: 0
       }
     },
     computed: {
@@ -64,6 +73,7 @@ import gistApi from '@/api/gist'
               updateDate: resp[i]['updated_at'],
               tag: resp[i].description
             })
+            this.total = this.blogList.length
           }
         })
       },
