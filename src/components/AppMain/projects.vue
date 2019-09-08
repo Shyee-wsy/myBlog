@@ -31,7 +31,8 @@ import user from '@/api/user'
     },
     methods: {
       fetchProjects() {
-        user.projects().then(data => {
+        user.projects().then(resp => {
+          let data = resp.data
           for(let i = 0; i < data.length; i++) {
             this.projects.push({
               id: data[i].id,

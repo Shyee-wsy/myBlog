@@ -31,13 +31,14 @@ export default {
       fetchBlog(){
         this.blog.id = this.$route.params.id
         gist.singleGist(this.blog.id).then( resp => {
-          for(let key in resp.files){
+          let data = resp.data
+          for(let key in data.files){
             this.blog.title = key
-            this.blog.content = resp.files[key].content
+            this.blog.content = data.files[key].content
           }
-          this.blog.tag = resp.description
-          this.blog.createdAt = resp['created_at']
-          this.blog.updatedAt = resp['updated_at']
+          this.blog.tag = data.description
+          this.blog.createdAt = data['created_at']
+          this.blog.updatedAt = data['updated_at']
         })
       }
   },

@@ -2,10 +2,10 @@ import request from '@/utils/request'
 import store from '../store/index'
 
 export default {
-  gistsCollection: function() {
+  gistsCollection: function(query) {
     let githubUsername = store.state.configuration.githubUsername
     return request({
-      url: `/users/${githubUsername}/gists`
+      url: `/users/${githubUsername}/gists?page=${query.current_page}&per_page=${query.page_size}`
     })
   },
   singleGist: function(gistId){

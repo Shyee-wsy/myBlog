@@ -81,8 +81,9 @@
       },
       getAvatar() {
         user.getInfo().then(resp =>{
-          this.avatar = resp['avatar_url']
-          this.gitHubUrl = resp['html_url']
+          let data = resp.data
+          this.avatar = data['avatar_url']
+          this.gitHubUrl = data['html_url']
         })
           .catch(error => console.log('获取头像失败'))
       }

@@ -10,22 +10,22 @@ const service = axios.create({
 })
 
 // 添加element Loading 加载显示动效
-let loading;
-function startLoading() {
-  loading = Loading.service({
-    lock: true,
-    text: '拼命加载中',
-    background: 'rgba(255,255,255,0)'
-  })
-}
-function endLoading() {
-  loading.close()
-}
+// let loading;
+// function startLoading() {
+//   loading = Loading.service({
+//     lock: true,
+//     text: '拼命加载中',
+//     background: 'rgba(255,255,255,0)'
+//   })
+// }
+// function endLoading() {
+//   loading.close()
+// }
 
 //添加请求拦截器
 service.interceptors.request.use(
   config => {
-    startLoading() //请求数据时开启loading
+    // startLoading() //请求数据时开启loading
     let token = store.state.token.token
     // 注意，此处先判断token有没有绑定，若绑定了token，才需给url加上token参数。若没有绑定，不需要给url添加token参数
     if(token) {
@@ -42,9 +42,10 @@ service.interceptors.request.use(
 //添加响应拦截器
 service.interceptors.response.use(
   response => {
-    endLoading() // 关闭loading
-    let data = response.data
-    return data
+    // endLoading() // 关闭loading
+    // let data = response.data
+    // return data
+    return response
   },
   error => {
     let errorMessage = error.response.data.message

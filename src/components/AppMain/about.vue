@@ -36,7 +36,8 @@ export default {
   methods: {
     getAvatar(){
       user.getInfo().then( resp => {
-        this.avatar = resp['avatar_url']
+        let data = resp.data
+        this.avatar = data['avatar_url']
       })
         .catch(error => console.log('获取头像失败' + error))
     }

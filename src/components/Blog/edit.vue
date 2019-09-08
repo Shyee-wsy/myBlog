@@ -52,11 +52,12 @@ export default {
   methods: {
     fetchBlog(){
       gistApi.singleGist(this.$route.params.id).then(resp => {
-        for(let key in resp.files){
+        let data = resp.data
+        for(let key in data.files){
           this.form.filename = key
-          this.form.content = resp.files[key].content
+          this.form.content = data.files[key].content
         }
-        this.form.tag = resp.description
+        this.form.tag = data.description
       }).catch(error => console.log(error))
     },
     submitForm(formName){

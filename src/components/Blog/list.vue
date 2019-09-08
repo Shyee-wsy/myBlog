@@ -1,38 +1,43 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-icon-edit" @click="newBlog">新建文章</el-button>
-    <el-card v-for="item in blogList" :key="item.id" class="blogCard" style="margin: 20px;">
-      <div slot="header">
-        <el-row>
-          <el-col :span="15">
-            <span class="title" style="font-size: 1.3rem;color: #409EFF" @click="goDetail(item.id)">{{item.title}}</span>
-            <el-tag size="mini" effect="dark" style="margin-left: 1rem;" type="danger">
-              <i class="el-icon-s-flag"></i>&nbsp;
-              {{item.tag}}
-            </el-tag>
-          </el-col>
-          <el-col :span="9">
-            <div style="position: absolute; right: 0;">
-              <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token" @click="editBlog(item.id)"></el-button>
-              <!--<el-button type="info" icon="el-icon-share" circle size="mini"></el-button>-->
-              <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id)" v-if="token"></el-button>
-            </div>
-          </el-col>
-        </el-row>
+    <el-button type="primary" icon="el-icon-edit" @click="newBlog" size="mini">新建文章</el-button>
+    <div v-if="blogList.length > 0">
+      <el-card v-for="(item, index) in blogList" :key="item.id" class="blogCard" style="margin: 15px;">
+        <div slot="header">
+          <el-row>
+            <el-col :span="15">
+              <span class="title" style="font-size: 1.3rem;color: #409EFF" @click="goDetail(item.id)">{{item.title}}</span>
+              <el-tag size="mini" effect="dark" style="margin-left: 1rem;" type="danger">
+                <i class="el-icon-s-flag"></i>&nbsp;
+                {{item.tag}}
+              </el-tag>
+            </el-col>
+            <el-col :span="9">
+              <div style="position: absolute; right: 0;">
+                <el-button  type="primary" icon="el-icon-edit" circle size="mini" v-if="token" @click="editBlog(item.id)"></el-button>
+                <!--<el-button type="info" icon="el-icon-share" circle size="mini"></el-button>-->
+                <el-button type="danger" icon="el-icon-delete" circle size="mini" @click="deleteBlog(item.id,index)" v-if="token"></el-button>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+        <div>
+          <time style="font-size:0.8em; margin-right: 20px; color: darkred;">发布时间：{{item.createdDate}}</time>
+          <time style="font-size: 0.8em; color: darkred">更新时间：{{item.updateDate}}</time>
+        </div>
+      </el-card>
+      <div class="block" style="position: absolute; bottom: 1rem; left:50%;">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="(query.totalPage) * (query.page_size)"
+          :page-size="query.page_size"
+          :page-count="query.page_count"
+          :current-page.sync="query.current_page"
+          @current-change="refetchBlog"
+        ></el-pagination>
       </div>
-      <div>
-        <time style="font-size:0.8em; margin-right: 20px; color: darkred;">发布时间：{{item.createdDate}}</time>
-        <time style="font-size: 0.8em; color: darkred">更新时间：{{item.updateDate}}</time>
-      </div>
-    </el-card>
-    <div class="block">
-      <el-pagination
-        layout="prev, pager, next"
-        :total="total"
-        :page-size="5"
-        :page-count="2"
-      ></el-pagination>
     </div>
+    <div v-else style="margin-top: 5rem;margin-left: 3rem;">暂时还没有发表任何文章~</div>
   </div>
 </template>
 
@@ -43,8 +48,13 @@ import gistApi from '@/api/gist'
   export default {
     data() {
       return{
+        query: {
+          totalPage: 1,
+          page_size: 4,
+          page_count: 5,
+          current_page: 1
+        },
         blogList: [],
-        total: 0
       }
     },
     computed: {
@@ -64,20 +74,37 @@ import gistApi from '@/api/gist'
         }
       },
       fetchAllBlog(){
-        gistApi.gistsCollection().then(resp => {
-          for(let i = 0; i < resp.length; i++) {
+        gistApi.gistsCollection(this.query).then(resp => {
+          let data = resp.data
+          let totalPage = this.$util.parseHeader(resp.headers)
+          this.query.totalPage = totalPage
+          for(let i = 0; i < data.length; i++) {
             this.blogList.push({
-              id: resp[i].id,
-              title: Object.keys(resp[i].files).join(''),
-              createdDate: resp[i]['created_at'],
-              updateDate: resp[i]['updated_at'],
-              tag: resp[i].description
+              id: data[i].id,
+              title: Object.keys(data[i].files).join(''),
+              createdDate: data[i]['created_at'],
+              updateDate: data[i]['updated_at'],
+              tag: data[i].description
             })
-            this.total = this.blogList.length
           }
         })
       },
-      deleteBlog(id) {
+      refetchBlog(){
+        this.blogList = []
+        gistApi.gistsCollection(this.query).then(resp => {
+          let data = resp.data
+          for(let i = 0; i < data.length; i++) {
+            this.blogList.push({
+              id: data[i].id,
+              title: Object.keys(data[i].files).join(''),
+              createdDate: data[i]['created_at'],
+              updateDate: data[i]['updated_at'],
+              tag: data[i].description
+            })
+          }
+        })
+      },
+      deleteBlog(id,index) {
         this.$confirm('此操作将永久删除该文章，是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -88,7 +115,12 @@ import gistApi from '@/api/gist'
               message: '删除成功',
               type: 'success'
             });
-            // this.fetchAllBlog()
+            console.log(this.blogList)
+            this.blogList.splice(index, 1)
+            console.log(this.blogList)
+            console.log('success')
+            this.blogList = []
+            this.fetchAllBlog()
           })
         }).catch( () => {
           this.$message({

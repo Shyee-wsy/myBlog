@@ -62,7 +62,8 @@ import user from '@/api/user'
     },
     methods:{
       fetchFollower(){
-        user.followers().then(data => {
+        user.followers().then(resp => {
+          let data = resp.data
           this.follower.total = data.length
           for(let i = 0; i < data.length; i++){
             this.follower.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})
@@ -70,7 +71,8 @@ import user from '@/api/user'
         })
       },
       fetchFollowing(){
-        user.following().then(data =>{
+        user.following().then(resp =>{
+          let data = resp.data
           this.following.total = data.length
           for(let i = 0; i < data.length; i++){
             this.following.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})

@@ -60,7 +60,7 @@
                 message: '发表成功',
                 type: 'success'
               })
-              this.$router.push('/Blog/detail/' + resp.id )
+              this.$router.push('/Blog/detail/' + resp.data.id )
               console.log(resp)
             })
           } else {
