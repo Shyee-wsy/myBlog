@@ -22,7 +22,7 @@ const token = {
     Authentication({ commit }, accessToken) { //参数为 context.commit 和 荷载accessToken
       UserApi.verifyToken(accessToken).then((response) => {
         let githubUsername = store.state.configuration.githubUsername
-        if(githubUsername === response['login']) {
+        if(githubUsername === response.data['login']) {
           commit('SET_TOKEN', accessToken)
           Vue.prototype.$notify({
             title: '成功',
