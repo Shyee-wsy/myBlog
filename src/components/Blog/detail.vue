@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-button style="margin-bottom: 1rem;" @click="$router.go(-1)" size="mini">返回</el-button>
     <article>
       <h1 style="font-size: 2rem;">{{blog.title}}</h1>
       <div style="font-size: 0.8rem">
