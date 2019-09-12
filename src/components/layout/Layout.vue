@@ -8,7 +8,7 @@
         <el-col :span="19">
           <el-card shadow="hover" :body-style="{padding:'3px'}">
             <el-row :gutter="20">
-              <el-col :span="9">
+              <el-col :span="14">
                 <el-menu mode="horizontal" @select="handleSelect">
                   <el-submenu index="about">
                     <template slot="title"> 社区 </template>
@@ -18,14 +18,14 @@
                   </el-submenu>
                 </el-menu>
               </el-col>
-              <el-col :span="7">
-                <el-form style="position:relative;top: 10px;">
-                  <el-form-item>
-                    <el-input placeholder="搜索..."></el-input>
-                  </el-form-item>
-                </el-form>
-              </el-col>
-              <el-col :span="8">
+              <!--<el-col :span="7">-->
+                <!--<el-form style="position:relative;top: 10px;">-->
+                  <!--<el-form-item>-->
+                    <!--<el-input placeholder="搜索..."></el-input>-->
+                  <!--</el-form-item>-->
+                <!--</el-form>-->
+              <!--</el-col>-->
+              <el-col :span="10">
                 <audio controls="controls" style="padding-top: 3px; outline:none;" loop >
                   <source src="../../assets/music.mp3"></source>
                 </audio>
