@@ -1,6 +1,17 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-icon-edit" @click="newBlog" size="mini">新建文章</el-button>
+    <el-row>
+      <el-col :span="5">
+        <el-button type="primary" icon="el-icon-edit" @click="newBlog">新建文章</el-button>
+      </el-col>
+      <el-col :span="7">
+        <el-form style="position:absolute; right: 10%">
+          <el-form-item>
+            <el-input placeholder="搜索..."></el-input>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
     <div v-if="blogList.length > 0">
       <el-card v-for="(item, index) in blogList" :key="item.id" class="blogCard" style="margin: 15px;">
         <div slot="header">
