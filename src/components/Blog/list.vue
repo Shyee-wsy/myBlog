@@ -147,7 +147,7 @@ import gistApi from '@/api/gist'
         this.$router.push('/blog/detail/' + id)
       }
     },
-    mounted: function () {
+    created: function () {
       this.fetchAllBlog()
     }
   }
