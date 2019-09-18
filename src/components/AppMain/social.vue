@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading">
       <template>
         <el-tabs>
           <el-tab-pane :label="'关注 ' + following.total">
@@ -58,29 +61,32 @@ import user from '@/api/user'
           list: [],
           total: 0
         },
+        loading: false
       }
     },
     methods:{
       fetchFollower(){
+        this.loading = true
         user.followers().then(resp => {
           let data = resp.data
           this.follower.total = data.length
           for(let i = 0; i < data.length; i++){
             this.follower.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})
           }
-        })
+        }).then(() => this.loading = false)
       },
       fetchFollowing(){
+       this.loading = true
         user.following().then(resp =>{
           let data = resp.data
           this.following.total = data.length
           for(let i = 0; i < data.length; i++){
             this.following.list.push({id: data[i].id, name: data[i].login, avatar: data[i].avatar_url, url: data[i].html_url})
           }
-        })
+        }).then(() => this.loading = false)
       }
     },
-    mounted(){
+    created(){
       this.fetchFollower();
       this.fetchFollowing();
     }
