@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-loading="loading"
+    element-loading-text="拼命加载中..."
+    element-loading-spinner="el-icon-loading">
     <div v-if="projects.length" v-cloak>
       <el-row>
         <el-col v-for="item in projects" :key="item.id" :span="12" style="padding: 10px">
@@ -23,14 +26,17 @@
 
 <script>
 import user from '@/api/user'
+
   export default {
     data(){
       return {
-        projects: []
+        projects: [],
+        loading: false
       }
     },
     methods: {
       fetchProjects() {
+        this.loading = true
         user.projects().then(resp => {
           let data = resp.data
           for(let i = 0; i < data.length; i++) {
@@ -45,7 +51,7 @@ import user from '@/api/user'
               url: data[i].clone_url
             })
           }
-        })
+        }).then(() => this.loading = false)
       }
     },
     mounted(){
