@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading">
     <el-row>
       <el-col :span="5">
         <el-button type="primary" icon="el-icon-edit" @click="newBlog">新建文章</el-button>
@@ -44,7 +47,7 @@
           :page-size="query.page_size"
           :page-count="query.page_count"
           :current-page.sync="query.current_page"
-          @current-change="refetchBlog"
+          @current-change="fetchAllBlog"
         ></el-pagination>
       </div>
     </div>
@@ -66,6 +69,7 @@ import gistApi from '@/api/gist'
           current_page: 1
         },
         blogList: [],
+        loading: false
       }
     },
     computed: {
@@ -85,11 +89,13 @@ import gistApi from '@/api/gist'
         }
       },
       fetchAllBlog(){
+        this.blogList = []
+        this.loading = true
         gistApi.gistsCollection(this.query).then(resp => {
           let data = resp.data
           let totalPage = this.$util.parseHeader(resp.headers)
           this.query.totalPage = totalPage
-          for(let i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.blogList.push({
               id: data[i].id,
               title: Object.keys(data[i].files).join(''),
@@ -98,22 +104,7 @@ import gistApi from '@/api/gist'
               tag: data[i].description
             })
           }
-        })
-      },
-      refetchBlog(){
-        this.blogList = []
-        gistApi.gistsCollection(this.query).then(resp => {
-          let data = resp.data
-          for(let i = 0; i < data.length; i++) {
-            this.blogList.push({
-              id: data[i].id,
-              title: Object.keys(data[i].files).join(''),
-              createdDate: data[i]['created_at'],
-              updateDate: data[i]['updated_at'],
-              tag: data[i].description
-            })
-          }
-        })
+        }).then( () => this.loading = false)
       },
       deleteBlog(id,index) {
         this.$confirm('此操作将永久删除该文章，是否继续?', '提示', {
@@ -126,12 +117,7 @@ import gistApi from '@/api/gist'
               message: '删除成功',
               type: 'success'
             });
-            console.log(this.blogList)
             this.blogList.splice(index, 1)
-            console.log(this.blogList)
-            console.log('success')
-            this.blogList = []
-            this.fetchAllBlog()
           })
         }).catch( () => {
           this.$message({
