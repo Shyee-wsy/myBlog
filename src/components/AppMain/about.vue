@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading" element-loading-text="正在加载中..." element-loading-spinner="el-icon-loading">
     <el-card shadow="never">
       <div class="about">
         <img :src="avatar" alt="头像">
@@ -30,15 +30,17 @@ import user from '@/api/user'
 export default {
   data(){
     return {
-      avatar: ''
+      avatar: '',
+      loading: false
     }
   },
   methods: {
     getAvatar(){
+      this.loading = true
       user.getInfo().then( resp => {
         let data = resp.data
         this.avatar = data['avatar_url']
-      })
+      }).then(() => this.loading = false)
         .catch(error => console.log('获取头像失败' + error))
     }
   },
