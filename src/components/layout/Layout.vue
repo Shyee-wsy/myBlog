@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header class="page-header">
+    <el-header style="padding: 5rem; background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color: white;">
       <el-row :gutter="15">
         <el-col :span="5">
           <img :src="avatar" alt="头像" style="width: 110px;height: 110px;position:relative;top:-40px;">
@@ -18,13 +18,6 @@
                   </el-submenu>
                 </el-menu>
               </el-col>
-              <!--<el-col :span="7">-->
-                <!--<el-form style="position:relative;top: 10px;">-->
-                  <!--<el-form-item>-->
-                    <!--<el-input placeholder="搜索..."></el-input>-->
-                  <!--</el-form-item>-->
-                <!--</el-form>-->
-              <!--</el-col>-->
               <el-col :span="10">
                 <audio controls="controls" style="padding-top: 3px; outline:none;" loop >
                   <source src="../../assets/music.mp3"></source>
@@ -98,12 +91,4 @@
   *{
     margin: 0;
   }
-  .page-header{
-    /*text-align: left;*/
-    padding: 5rem 6rem;
-    background-color: #159957;
-    background-image: linear-gradient(120deg, #155799, #159957);
-    color: white;
-  }
-
 </style>
