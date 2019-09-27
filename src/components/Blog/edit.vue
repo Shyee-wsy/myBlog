@@ -8,9 +8,10 @@
         <el-radio-group v-model="form.tag">
           <el-radio label="JS"></el-radio>
           <el-radio label="html"></el-radio>
-          <el-radio label="python"></el-radio>
           <el-radio label="css"></el-radio>
-          <el-radio label="日记"></el-radio>
+          <el-radio label="vue"></el-radio>
+          <el-radio label="小程序"></el-radio>
+          <el-radio label="随笔"></el-radio>
           <el-radio label="其他"></el-radio>
         </el-radio-group>
       </el-form-item>
