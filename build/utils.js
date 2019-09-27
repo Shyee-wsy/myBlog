@@ -48,7 +48,7 @@ exports.cssLoaders = function (options) {
       return ExtractTextPlugin.extract({
         use: loaders,
         fallback: 'vue-style-loader',
-        publicPath: '../..' // 解决找不到图标库的问题
+        publicPath: '../../' // 解决找不到图标库的问题
       })
     } else {
       return ['vue-style-loader'].concat(loaders)
