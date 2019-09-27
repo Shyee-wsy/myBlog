@@ -8,7 +8,9 @@
         <time style="margin: 0 2rem; color: darkred;">创建时间：{{blog.createdAt}}</time>
         <time style="color: darkred;">更新时间：{{blog.updatedAt}}</time>
       </div>
-      <p style="font-size: 1.2rem; margin-bottom: 2rem;">{{blog.content}}</p>
+      <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+        <VueShowdown :markdown="blog.content" />
+      </p>
     </article>
   </div>
 </template>

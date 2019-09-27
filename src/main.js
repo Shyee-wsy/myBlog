@@ -7,10 +7,17 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import utils from '@/utils/utils'
+import VueShowndown from 'vue-showdown'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$util = utils
+Vue.use(VueShowndown, {
+  flavor: 'github',
+  options: {
+    emoji: false,
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
